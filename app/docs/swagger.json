@@ -1,0 +1,143 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Sipitha API documentation",
+        "description": "This page describes the REST API of Sipitha",
+        "version": "0.1.0"
+    },
+    "produces": [
+        "application/json"
+    ],
+    "host": "localhost:8000",
+    "paths": {
+        "/createUser": {
+            "post": {
+                "x-swagger-router-controller": "Default",
+                "tags": [
+                    "Default"
+                ],
+                "summary": "Creates a user",
+                "description": "Takes in a username, password, and email inside the body. The server will create a mongoDB document and instert it into the Users collection.",
+                "operationId": "rootPost",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "User",
+                        "description": "The User JSON you want to post",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Made a new User"
+                    }
+                }
+            }
+        },
+        "/getUsers": {
+            "get": {
+                "x-swagger-router-controller": "Default",
+                "tags": [
+                    "Default"
+                ],
+                "summary": "Returns a list of every user in the database.",
+                "description": "",
+                "operationId": "user",
+                "responses": {
+                    "200": {
+                        "description": "Sends the list of every user in the database."
+                    }
+                }
+            }
+        },
+        "/getTags": {
+            "get": {
+                "x-swagger-router-controller": "Default",
+                "tags": [
+                    "Default"
+                ],
+                "summary": "Returns a list of every tag in the database.",
+                "operationId": "petIdGet",
+                "responses": {
+                    "200": {
+                        "description": "Sends the list of every tag in the database."
+                    }
+                }
+            }
+        },
+        "/getTagByName": {
+            "post": {
+                "x-swagger-router-controller": "Default",
+                "tags": [
+                    "Default"
+                ],
+                "summary": "Returns a list of songs inside of a tag.",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "name",
+                        "description": "Name of tag to get.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "operationId": "petIdGet",
+                "responses": {
+                    "200": {
+                        "description": "Sends tag by name."
+                    }
+                }
+            }
+        },
+        "/authenticate": {
+            "post": {
+                "x-swagger-router-controller": "Default",
+                "tags": [
+                    "Default"
+                ],
+                "summary": "Logs a user in",
+                "description": "The Authenticate route takes in a body object with a username and password parameter. It returns an Authentication Token in the form of a string upon a successful request. In order to access /api/ calls, headers must contain an Authorization property with the token string and 'Bearer ' prepended to it. (req.headers.Authorization = 'Bearer ' + $window.sessionStorage.token)",
+                "operationId": "petIdGet",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "username",
+                        "description": "Username of the account attempting to log in",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "password",
+                        "description": "Password of the account attempting to log in",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
